@@ -1,0 +1,40 @@
+package Resturant.egen.rest.controllers;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/resturant")
+public class ResturantController {
+	
+	@GET
+	public String findRes(){
+		
+		return "hi";
+		
+	}
+	
+	@GET
+	@Path("/res")
+	public String findOne(@PathParam("res") int resNo){
+	 
+	System.out.println("i was called ");
+		return " i got res_no impliment return fucnction "+ resNo;
+	}
+	
+	@POST
+	@Path("/JSON")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String makeRes(){
+		
+		
+		return "I am POST  ";
+	}
+	
+
+}

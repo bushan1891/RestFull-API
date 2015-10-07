@@ -1,0 +1,17 @@
+package Resturant.egen.rest.controllers;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+
+@Path("/resturant")
+public class ResturantController {
+	
+	@GET
+	public String findRes(){
+		
+		return "hi";
+		
+	}
+	
+
+}

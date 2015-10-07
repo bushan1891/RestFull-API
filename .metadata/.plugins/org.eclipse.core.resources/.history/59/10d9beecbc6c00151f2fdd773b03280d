@@ -1,0 +1,52 @@
+package Resturant.egen.dao;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import Resturant.egen.model.Resturant;
+import Resturant.egen.util.DBUtils;
+
+public class ResturantDAO {
+	
+	public List<Resturant> fetchAll(){
+		
+		List<Resturant> ResList = new ArrayList<Resturant>();
+		Connection con = DBUtils.getConnection();
+		
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			
+			ps = con.prepareStatement("Select * from rest_db.resturant");
+			rs = ps.executeQuery();
+			
+		while(rs.next()){
+		Resturant res	= new Resturant();
+		
+		res.setCON_id(rs.getInt("CON_ID"));
+		res.setFirstName(rs.getString("FIRST_NAME"));
+		res.setLastName(rs.getString("LAST_NAME"));
+		res.setDate(rs.getTimestamp("RES_DATE"));
+		res.setPhone(rs.getString("PHONE"));
+		System.out.println(res.getCON_id());
+		
+		}
+			
+			
+		} catch (Exception e) {
+			
+			System.out.println(" Error in Returant DAO "+ e );
+			
+			// TODO: handle exception
+		}
+		
+		
+	 return ResList;
+		
+	}
+	
+
+}

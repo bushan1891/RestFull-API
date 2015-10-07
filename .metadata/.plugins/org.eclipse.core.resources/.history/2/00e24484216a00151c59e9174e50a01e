@@ -1,0 +1,29 @@
+package solution.egen.app;
+
+import io.swagger.jaxrs.config.BeanConfig;
+
+import javax.ws.rs.ApplicationPath;
+
+import org.glassfish.jersey.server.ResourceConfig;
+
+@ApplicationPath("/api")
+public class RestAPP extends ResourceConfig {
+	
+	public RestAPP () {
+		packages("solutions.egen.rest");
+		//swagger
+		
+		register(io.swagger.jaxrs.listing.ApiListingResource.class);
+		register(io.swagger.jaxrs.listing.SwaggerSerializers.class);
+		
+		BeanConfig config = new BeanConfig();
+		config.setBasePath("/RestAPP/api");
+		config.setDescription("REST API Demo");
+		config.setVersion("1.0");
+		config.setSchemes(new String [] {"http"});
+		config.setResourcePackage("solution.egen");
+		config.setTitle("RESTApp API");
+		config.setScan(true);
+		
+	}
+}
