@@ -8,9 +8,11 @@ CREATE TABLE rest_db.resturant (
   PRIMARY KEY (CON_ID)
 ) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
 
-
 INSERT INTO `rest_db`.`resturant`
 (`FIRST_NAME`,`LAST_NAME`,`EMAIL`,`RES_DATE`,`PHONE`)
-VALUES(Bushan,nagendra,bush@gma.com,1349852400000,8587660916),
-(vivek,kumar,bvivke@gmail.com,1349852400000,4567464563),
-(nihar,patel,gfj@gmail.com,1349852400000,6754563456);
+VALUES
+('Bushan','nagendra','bush@gma.com','2008-11-11 13:23:44','8587660916'),
+
+('vivek','kumar','bvivke@gmail.com','2008-11-11 13:23:44','4567464563'),
+
+('nihar','patel','gfj@gmail.com','2008-11-11 13:23:44','6754563456');
