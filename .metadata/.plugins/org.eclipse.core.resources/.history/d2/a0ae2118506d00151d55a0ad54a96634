@@ -1,0 +1,5 @@
+package Resturant.egen.rest.providers;
+
+public class CROSFilter {
+
+}

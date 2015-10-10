@@ -1,10 +1,19 @@
 package Resturant.egen.rest.controllers;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -13,12 +22,21 @@ import javax.ws.rs.core.MediaType;
 import Resturant.egen.dao.ResturantDAO;
 import Resturant.egen.exception.AppException;
 import Resturant.egen.model.Resturant;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
 
 @Path("/resturant")
+@Api(tags= {"Rsturant"})
 public class ResturantController {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation (value="Find All",
+	notes = "Finds all Resturant reservations")
+@ApiResponses(value = {
+	@ApiResponse (code=200, message="Success"),
+	@ApiResponse (code=500, message="Internal Server Error")
+})
 	public List findRes() throws AppException{
 		
 		ResturantDAO dao = new ResturantDAO();
@@ -30,6 +48,12 @@ public class ResturantController {
 	@GET
 	@Path("/{res}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation (value="Find one",
+	notes = "Finds particular Resturant reservations")
+@ApiResponses(value = {
+	@ApiResponse (code=200, message="Success"),
+	@ApiResponse (code=500, message="Internal Server Error")
+})
 	public Resturant findOne(@PathParam("res") int resNo){
          	 
  	ResturantDAO dao = new ResturantDAO();
@@ -38,14 +62,41 @@ public class ResturantController {
 	}
 	
 	@POST
-	@Path("/JSON")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String makeRes(){
+	@ApiOperation (value="Create",
+		notes = "Create a reservation")
+	@ApiResponses(value = {
+		@ApiResponse (code=200, message="Success"),
+		@ApiResponse (code=500, message="Internal Server Error")
+	})
+	public Resturant makeRes(Resturant reservation) throws AppException{
+		
+		ResturantDAO dao = new ResturantDAO();
+		return dao.create(reservation);
 		
 		
-		return "I am POST  ";
 	}
+	
+	@PUT
+	@Path("/{CON_ID}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation (value="Update",
+		notes = "Update an Reservation")
+	@ApiResponses(value = {
+		@ApiResponse (code=200, message="Success"),
+		@ApiResponse (code=500, message="Internal Server Error")
+	})
+	public Resturant update(@PathParam("CON_ID") int CON_ID, Resturant res) throws AppException{
+		
+       ResturantDAO dao=new ResturantDAO();
+       
+		return dao.update(CON_ID,res);
+	}
+	
+	
+	
 	
 
 }
