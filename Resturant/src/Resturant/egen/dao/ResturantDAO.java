@@ -3,6 +3,8 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import Resturant.egen.model.Resturant;
@@ -84,6 +86,82 @@ public class ResturantDAO  {
 		}
 		
 		return res;
+	}
+	
+	
+	public Resturant create(Resturant res) throws AppException {
+		Connection con = DBUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		System.out.println(res.getFirstName());
+		
+		try {
+			ps = con.prepareStatement("INSERT INTO resturant (FIRST_NAME,LAST_NAME,EMAIL,RES_DATE,PHONE) VALUES (?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);			
+			ps.setString(1, res.getFirstName());
+			ps.setString(2, res.getLastName());
+			ps.setString(3, res.getEmail());
+			ps.setTimestamp(4,res.getDate());
+			ps.setString(5, res.getPhone());
+			
+			
+			ps.executeUpdate();
+			
+			rs = ps.getGeneratedKeys();
+
+			if (rs.next()) {
+				//res.setCON_id(rs.getInt(1));
+				System.out.println(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AppException(e.getMessage(), e.getCause());
+		} finally {
+			DBUtils.closeResource(ps, rs, con);
+		}
+
+		return res;
+	}
+	
+	
+	
+	public Resturant update(Integer CON_ID,Resturant res) throws AppException {
+		
+		Connection con = DBUtils.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		
+		
+		try {
+			ps = con.prepareStatement("UPDATE rest_db.resturant SET FIRST_NAME=?,LAST_NAME=?,EMAIL=?,RES_DATE=?,PHONE=? WHERE CON_ID=?;", PreparedStatement.RETURN_GENERATED_KEYS);			
+			ps.setString(1, res.getFirstName());
+			ps.setString(2, res.getLastName());
+			ps.setString(3, res.getEmail());
+			ps.setTimestamp(4,res.getDate());
+			ps.setString(5, res.getPhone());
+			ps.setInt(6,CON_ID);
+			
+			ps.executeUpdate();
+			
+			rs = ps.getGeneratedKeys();
+
+			if (rs.next()) {
+				//res.setCON_id(rs.getInt(1));
+				System.out.println(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AppException(e.getMessage(), e.getCause());
+		} finally {
+			DBUtils.closeResource(ps, rs, con);
+		}
+
+		return res;
+		
+		
+	
+	
 	}
 
 }

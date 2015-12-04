@@ -1,0 +1,5 @@
+package Resturant.egen.rest.controllers;
+
+public @interface ApiResponse {
+
+}
